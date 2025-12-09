@@ -1,7 +1,7 @@
 # 🛍️ Second Avenue – The Avenue of Second Chances
 
 > **PAP (Prova de Aptidão Profissional) | 2025/2026**
-> **Author:** Dinis SIlva (a.k.a. peachiu)
+> **Author:** Dinis Silva (a.k.a. peachiu)
 
 ## 📖 About the Project
 **Second Avenue** is an interactive and dynamic web platform dedicated to the buying and selling of secondhand and refurbished products. 
