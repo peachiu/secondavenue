@@ -1,1 +1,151 @@
-.
+/* =========================================
+   1. VARIABLES & SETUP
+   ========================================= */
+:root {
+    /* Brand Colors */
+    --primary-color: #00C896;   /* Mint Green */
+    --primary-hover: #00A67D;
+    --dark-surface: rgba(20, 20, 20, 0.85); /* Semi-transparent black */
+    --glass-border: rgba(255, 255, 255, 0.1);
+    
+    /* Layout Variables */
+    --radius-card: 24px;        /* Super rounded cards */
+    --radius-pill: 50px;        /* Fully rounded UI elements */
+    --nav-width: 95%;           /* Width of the floating bar */
+    
+    /* Animation */
+    --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+    background-color: #f2f2f7; /* iOS Light Gray Background */
+    color: #1d1d1f;
+    -webkit-font-smoothing: antialiased;
+    padding-top: 10px; /* Space for the floating nav */
+}
+
+/* =========================================
+   2. THE FLOATING NAVBAR (The Star of the Show)
+   ========================================= */
+.navbar {
+    /* Positioning */
+    width: var(--nav-width);
+    max-width: 1200px; /* Don't get too wide on huge screens */
+    margin: 20px auto; /* Floats it from top and centers it */
+    
+    /* Styling */
+    background-color: var(--dark-surface) !important;
+    backdrop-filter: blur(15px); /* The "Frosted Glass" effect */
+    -webkit-backdrop-filter: blur(15px); /* Safari support */
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-pill);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); /* Deep shadow for 3D float */
+    padding: 0.8rem 1.5rem;
+}
+
+/* Fix for the "Sticky" behavior with margins */
+.sticky-top {
+    top: 20px; /* Sticks 20px from the top of the viewport */
+    z-index: 1030;
+}
+
+.navbar-brand {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    font-size: 1.3rem;
+    padding-left: 10px;
+}
+
+/* Search Bar - Integrated styling */
+.navbar input[type="search"] {
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    transition: var(--transition);
+}
+
+.navbar input[type="search"]:focus {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #000;
+    box-shadow: 0 0 0 4px rgba(0, 200, 150, 0.3);
+}
+
+/* Navigation Links */
+.nav-link {
+    color: rgba(255,255,255, 0.7) !important;
+    transition: var(--transition);
+}
+
+.nav-link:hover {
+    color: #fff !important;
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   3. MODERN HERO SECTION
+   ========================================= */
+header.bg-light {
+    /* Remove default gray, let's make it transparent to blend */
+    background: transparent; 
+    padding-top: 40px; /* Push content down slightly */
+    padding-bottom: 60px;
+    text-align: center;
+}
+
+header h1 {
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: -webkit-linear-gradient(45deg, #1d1d1f, #4a4a4a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Gradient Text */
+}
+
+/* =========================================
+   4. CARDS & BUTTONS
+   ========================================= */
+.card {
+    border: none;
+    border-radius: var(--radius-card);
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03); /* Very subtle initial shadow */
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12); /* Heavy lift on hover */
+}
+
+/* Image container */
+.card-img-top {
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
+}
+
+/* Buttons */
+.btn {
+    border-radius: var(--radius-pill);
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 200, 150, 0.4); /* Glow effect */
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 8px 25px rgba(0, 200, 150, 0.6);
+    transform: translateY(-2px);
+}
+
+.btn-outline-dark {
+    border-width: 2px;
+}

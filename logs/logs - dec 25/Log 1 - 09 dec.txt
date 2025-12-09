@@ -1,0 +1,70 @@
+Log 1 - 09/12/25
+
+Project: Second Avenue (PAP)
+Phase: Frontend Base Structure & Styling
+
+Goal Achieved: Successful creation of core HTML files and modern CSS styling, preparing the groundwork for backend integration.
+
+---
+
+### SESSION SUMMARY (ENGLISH)
+
+**1. Documentation and Project Setup**
+* Drafted the content for the GitHub Repository documentation (`README.md`).
+* Translated the `README.md` into European Portuguese, incorporating custom details (author alias, full name, course information).
+* Selected and drafted the **MIT License** for the project, recommending the addition of a `LICENSE` file.
+
+**2. Core HTML Structure (`index.html`)**
+* Created the base HTML structure for the homepage, including:
+    * Setup of Bootstrap 5 and Font Awesome CDNs.
+    * Implemented a responsive Navigation Bar (Search, Cart, Login placeholders).
+    * Designed a Hero Section with calls-to-action.
+    * Established a placeholder grid for dynamic Product Cards (key feature).
+    * Included a basic Footer.
+
+**3. Styling Implementation (`css/style.css`)**
+* **Initial CSS Draft:** Defined global variables (colors, shadows) and basic overrides for Bootstrap elements (buttons, cards) to establish a clean, modern aesthetic.
+* **Modern UI Revision (Floating Navbar & Glassmorphism):**
+    * Revised `css/style.css` entirely to implement advanced modern design requested by the user.
+    * Implemented a **floating, centered, rounded Navbar** using high border-radius (`50px`).
+    * Utilized **Glassmorphism** with `backdrop-filter: blur(15px)` for a semi-transparent, frosted glass effect.
+    * Adjusted card styles to use deep rounding (`24px`) and subtle lift/scale hover effects, prioritizing a premium, Apple-like feel.
+    * ***Required HTML Tweak:*** Removed the default `bg-dark` class from the `<nav>` tag in `index.html` to allow the CSS transparency to function correctly.
+
+**4. User Authentication Page (`login.html`)**
+* Created the structure for the user management page (`login.html`).
+* Implemented a clean, centered card design that inherits the new aesthetic.
+* Used Bootstrap tabs for easy switching between the **Login** form and the **Register** form.
+* Forms are set to target placeholder PHP files (`process_login.php` and `process_register.php`), preparing for the next phase.
+
+----
+
+### RESUMO DA SESSÃO (PORTUGUÊS)
+
+**1. Documentação e Configuração do Projeto**
+* Elaborado o conteúdo para a documentação do Repositório GitHub (`README.md`).
+* Traduzido o `README.md` para Português Europeu, incorporando detalhes personalizados (pseudónimo do autor, nome completo, informação do curso).
+* Selecionada e redigida a **Licença MIT** para o projeto, recomendando a adição do ficheiro `LICENSE`.
+
+**2. Estrutura HTML Principal (`index.html`)**
+* Criada a estrutura HTML base para a página inicial, incluindo:
+    * Configuração dos CDNs do Bootstrap 5 e Font Awesome.
+    * Implementação de uma Barra de Navegação responsiva (placeholders para Pesquisa, Carrinho e Login).
+    * Desenho de uma Secção de Destaque (Hero Section) com chamadas à ação.
+    * Estabelecida uma grelha de placeholder para Cartões de Produtos dinâmicos (funcionalidade chave).
+    * Incluído um rodapé básico (Footer).
+
+**3. Implementação de Estilos (`css/style.css`)**
+* **Primeiro Rascunho CSS:** Definidas variáveis globais (cores, sombras) e ajustes básicos aos elementos do Bootstrap (botões, cards) para estabelecer uma estética limpa e moderna.
+* **Revisão de UI Moderna (Navbar Flutuante e Glassmorphism):**
+    * Revisão completa do `css/style.css` para implementar o design moderno avançado solicitado pelo utilizador.
+    * Implementada uma **Navbar flutuante, centrada e arredondada** usando um elevado raio de borda (`50px`).
+    * Utilizado o efeito **Glassmorphism** com `backdrop-filter: blur(15px)` para um efeito de vidro fosco semi-transparente.
+    * Ajustados os estilos dos cartões para usar cantos profundos (`24px`) e efeitos subtis de elevação/escala no hover, priorizando um visual premium, semelhante ao da Apple.
+    * ***Ajuste HTML Necessário:*** Removida a classe padrão `bg-dark` da tag `<nav>` no `index.html` para permitir que a transparência do CSS funcione corretamente.
+
+**4. Página de Autenticação de Utilizador (`login.html`)**
+* Criada a estrutura para a página de gestão de utilizadores (`login.html`).
+* Implementado um design de cartão limpo e centrado que herda a nova estética.
+* Utilizadas tabs do Bootstrap para alternar facilmente entre o formulário de **Login** e o de **Registo**.
+* Os formulários estão configurados para apontar para ficheiros PHP de placeholder (`process_login.php` e `process_register.php`), preparando a próxima fase.
