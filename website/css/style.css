@@ -1,152 +1,150 @@
-/* =========================================
-   1. VARIABLES & SETUP
-   ========================================= */
 :root {
-    /* Brand Colors */
-    --primary-color: #00C896;   /* Mint Green */
-    --primary-hover: #00A67D;
-    --dark-surface: rgba(20, 20, 20, 0.85); /* Semi-transparent black */
-    --glass-border: rgba(255, 255, 255, 0.1);
+    /* Trustworthy Palette */
+    --primary-color: #0f172a; /* Deep Blue / Slate 900 */
+    --secondary-color: #334155; /* Slate 700 */
+    --accent-color: #86efac; /* Pastel Green / Emerald 300 */
+    --accent-hover: #4ade80; /* Emerald 400 */
+    --text-primary: #1e293b; /* Slate 800 */
+    --text-secondary: #64748b; /* Slate 500 */
+    --bg-body: #f8fafc; /* Slate 50 */
+    --bg-card: #ffffff;
     
-    /* Layout Variables */
-    --radius-card: 24px;        /* Super rounded cards */
-    --radius-pill: 50px;        /* Fully rounded UI elements */
-    --nav-width: 95%;           /* Width of the floating bar */
-    
-    /* Animation */
-    --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* UI Constants */
+    --card-radius: 20px;
+    --nav-height: 80px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+[data-theme="dark"] {
+    --primary-color: #f8fafc;
+    --secondary-color: #cbd5e1;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --bg-body: #0f172a;
+    --bg-card: #1e293b;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
-    background-color: #f2f2f7; /* iOS Light Gray Background */
-    color: #1d1d1f;
-    -webkit-font-smoothing: antialiased;
-    padding-top: 10px; /* Space for the floating nav */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    transition: background-color 0.3s, color 0.3s;
 }
 
-/* =========================================
-   2. THE FLOATING NAVBAR (The Star of the Show)
-   ========================================= */
+/* Floating Navbar */
 .navbar {
-    /* Positioning */
-    width: var(--nav-width);
-    max-width: 1200px; /* Don't get too wide on huge screens */
-    margin: 20px auto; /* Floats it from top and centers it */
-    
-    /* Styling */
-    background-color: var(--dark-surface) !important;
-    backdrop-filter: blur(15px); /* The "Frosted Glass" effect */
-    -webkit-backdrop-filter: blur(15px); /* Safari support */
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-pill);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); /* Deep shadow for 3D float */
-    padding: 0.8rem 1.5rem;
+    background: rgba(255, 255, 255, 0.85); /* Glass effect */
+    backdrop-filter: blur(12px);
+    border-radius: 50px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
+    box-shadow: var(--shadow-lg);
+    padding: 0.8rem 2rem;
+    transition: all 0.3s ease;
 }
 
-/* Fix for the "Sticky" behavior with margins */
-.sticky-top {
-    top: 20px; /* Sticks 20px from the top of the viewport */
-    z-index: 1030;
+[data-theme="dark"] .navbar {
+    background: rgba(30, 41, 59, 0.85);
 }
 
 .navbar-brand {
+    color: var(--primary-color) !important;
     font-weight: 800;
     letter-spacing: -0.5px;
-    font-size: 1.3rem;
-    padding-left: 10px;
 }
 
-/* Search Bar - Integrated styling */
-.navbar input[type="search"] {
-    border-radius: 30px;
-    background-color: rgba(255, 255, 255, 0.15);
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    transition: var(--transition);
-}
-
-.navbar input[type="search"]:focus {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #000;
-    box-shadow: 0 0 0 4px rgba(0, 200, 150, 0.3);
-}
-
-/* Navigation Links */
 .nav-link {
-    color: rgba(255,255,255, 0.7) !important;
-    transition: var(--transition);
+    color: var(--secondary-color) !important;
+    font-weight: 500;
+    transition: color 0.2s;
 }
 
 .nav-link:hover {
-    color: #fff !important;
-    transform: translateY(-2px);
-}
-
-/* =========================================
-   3. MODERN HERO SECTION
-   ========================================= */
-header.bg-light {
-    /* Remove default gray, let's make it transparent to blend */
-    background: transparent; 
-    padding-top: 40px; /* Push content down slightly */
-    padding-bottom: 60px;
-    text-align: center;
-}
-
-header h1 {
-    font-weight: 800;
-    letter-spacing: -1px;
-    background: -webkit-linear-gradient(45deg, #1d1d1f, #4a4a4a);
-    -webkit-background-clip: text;
-    background-clip: text; /* Standard property for compatibility */
-    -webkit-text-fill-color: transparent; /* Gradient Text */
-}
-
-/* =========================================
-   4. CARDS & BUTTONS
-   ========================================= */
-.card {
-    border: none;
-    border-radius: var(--radius-card);
-    background: #ffffff;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.03); /* Very subtle initial shadow */
-    transition: var(--transition);
-    overflow: hidden;
-}
-
-.card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.12); /* Heavy lift on hover */
-}
-
-/* Image container */
-.card-img-top {
-    border-radius: var(--radius-card) var(--radius-card) 0 0;
+    color: var(--primary-color) !important;
 }
 
 /* Buttons */
-.btn {
-    border-radius: var(--radius-pill);
-    padding: 0.6rem 1.5rem;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    transition: var(--transition);
-}
-
 .btn-primary {
     background-color: var(--primary-color);
-    border: none;
-    box-shadow: 0 4px 15px rgba(0, 200, 150, 0.4); /* Glow effect */
+    border-color: var(--primary-color);
+    border-radius: 50px;
+    padding: 0.6rem 1.5rem;
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-hover);
-    box-shadow: 0 8px 25px rgba(0, 200, 150, 0.6);
-    transform: translateY(-2px);
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
 }
 
-.btn-outline-dark {
-    border-width: 2px;
+.btn-accent {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+}
+
+.btn-accent:hover {
+    background-color: var(--accent-hover);
+    color: var(--primary-color);
+}
+
+/* Cards */
+.card {
+    background-color: var(--bg-card);
+    border: none;
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-img-top {
+    height: 220px;
+    object-fit: cover;
+    background-color: #e2e8f0;
+}
+
+/* Verified Tick */
+.verified-tick {
+    color: #3b82f6; /* Blue tick like generic social media */
+    margin-left: 4px;
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-color) !important;
+    margin-top: 4rem;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+}
+
+/* Hero Section */
+.hero {
+    padding: 6rem 0;
+    text-align: center;
+}
+
+.hero h1 {
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--primary-color);
+}
+
+/* Utilities */
+.text-accent {
+    color: var(--accent-color);
+}
+
+.bg-accent {
+    background-color: var(--accent-color);
 }

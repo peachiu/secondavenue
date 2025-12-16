@@ -1,0 +1,66 @@
+<?php
+session_start();
+require_once '../backend/auth.php';
+
+$error = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+    
+    $result = loginUser($email, $password);
+    if ($result['success']) {
+        header('Location: index.php');
+        exit;
+    } else {
+        $error = $result['message'];
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar - Second Avenue</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+
+    <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
+        <div class="card-body">
+            <div class="text-center mb-4">
+                <a href="index.php" class="text-decoration-none h3 fw-bold text-dark">SECOND AVENUE</a>
+                <p class="text-muted small mt-2">Bem-vindo de volta!</p>
+            </div>
+
+            <?php if ($error): ?>
+                <div class="alert alert-danger py-2 small"><?= htmlspecialchars($error) ?></div>
+            <?php endif; ?>
+
+            <form method="POST">
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Email</label>
+                    <input type="email" name="email" class="form-control rounded-pill" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Palavra-passe</label>
+                    <input type="password" name="password" class="form-control rounded-pill" required>
+                </div>
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-primary btn-lg fs-6 fw-bold">Entrar</button>
+                </div>
+            </form>
+
+            <div class="text-center mt-3 small">
+                <span class="text-muted">Não tens conta?</span>
+                <a href="register.php" class="text-primary fw-bold text-decoration-none">Registar</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

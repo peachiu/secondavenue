@@ -1,0 +1,185 @@
+<?php
+session_start();
+require_once '../backend/db.php';
+require_once '../backend/auth.php';
+
+$id = $_GET['id'] ?? null;
+if (!$id) {
+    header('Location: index.php');
+    exit;
+}
+
+// Fetch listing details + Seller info
+$stmt = $pdo->prepare("
+    SELECT l.*, u.name as seller_name, u.location as seller_location, u.is_verified, u.id as seller_id
+    FROM listings l
+    JOIN users u ON l.user_id = u.id
+    WHERE l.id = ?
+");
+$stmt->execute([$id]);
+$product = $stmt->fetch();
+
+if (!$product) {
+    echo "Produto não encontrado.";
+    exit;
+}
+
+// Handle Reviews logic later (placeholder)
+?>
+<!DOCTYPE html>
+<html lang="pt-pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title><?= htmlspecialchars($product['title']) ?> - Second Avenue</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="index.php">SECOND AVENUE</a>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="row g-5">
+            <!-- Product Image -->
+            <div class="col-md-6">
+                <div class="card p-5 bg-white text-center align-items-center justify-content-center shadow-sm"
+                    style="height: 400px;">
+                    <?php if ($product['image_url']): ?>
+                        <img src="<?= htmlspecialchars($product['image_url']) ?>" alt="Produto" class="img-fluid"
+                            style="max-height: 100%;">
+                    <?php else: ?>
+                        <i class="fas fa-box-open fa-5x text-secondary opacity-50"></i>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- Details -->
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <span
+                        class="badge bg-primary bg-opacity-10 text-primary"><?= htmlspecialchars($product['category']) ?></span>
+                    <?php if ($product['tags']): ?>
+                        <?php foreach (explode(',', $product['tags']) as $tag): ?>
+                            <span class="badge bg-light text-secondary border"><?= trim(htmlspecialchars($tag)) ?></span>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+
+                <h1 class="fw-bold mb-2"><?= htmlspecialchars($product['title']) ?></h1>
+                <div class="h3 text-primary fw-bold mb-4"><?= number_format($product['price'], 2) ?> €</div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-user-circle fa-2x text-muted me-3"></i>
+                            <div>
+                                <h6 class="fw-bold mb-0">
+                                    <?= htmlspecialchars($product['seller_name']) ?>
+                                    <?php if ($product['is_verified']): ?>
+                                        <i class="fas fa-check-circle verified-tick" title="Vendedor Verificado"></i>
+                                    <?php endif; ?>
+                                </h6>
+                                <small
+                                    class="text-muted"><?= htmlspecialchars($product['seller_location'] ?? 'Localização desconhecida') ?></small>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="chat.php?receiver_id=<?= $product['seller_id'] ?>&listing_id=<?= $product['id'] ?>"
+                                class="btn btn-primary py-2 rounded-pill fw-bold">
+                                <i class="fas fa-comments me-2"></i> Contactar Vendedor
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h5 class="fw-bold">Descrição</h5>
+                    <p class="text-muted"><?= nl2br(htmlspecialchars($product['description'])) ?></p>
+                </div>
+
+                <!-- Stock Info -->
+                <div class="d-flex align-items-center gap-2 mb-4">
+                    <span class="fw-bold">Disponibilidade:</span>
+                    <?php if ($product['stock'] > 0): ?>
+                        <span class="badge bg-success">Em Stock (<?= $product['stock'] ?>)</span>
+                    <?php else: ?>
+                        <span class="badge bg-danger">Esgotado</span>
+                    <?php endif; ?>
+                </div>
+
+                <hr>
+
+                <!-- Reviews Section -->
+                <div class="mt-4">
+                    <h5 class="fw-bold mb-3">Avaliações</h5>
+                    
+                    <?php
+                    // Handle Review Submission
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rating'])) {
+                        if (isLoggedIn()) {
+                            $rating = (int)$_POST['rating'];
+                            $comment = $_POST['comment'] ?? '';
+                            $stmt = $pdo->prepare("INSERT INTO reviews (reviewer_id, listing_id, seller_id, rating, comment) VALUES (?, ?, ?, ?, ?)");
+                            $stmt->execute([$_SESSION['user_id'], $product['id'], $product['seller_id'], $rating, $comment]);
+                            echo "<div class='alert alert-success py-2'>Obrigado pela sua avaliação!</div>";
+                        } else {
+                            echo "<div class='alert alert-warning py-2'>Faça login para avaliar.</div>";
+                        }
+                    }
+
+                    // Fetch Reviews
+                    $stmt = $pdo->prepare("SELECT r.*, u.name as reviewer_name FROM reviews r JOIN users u ON r.reviewer_id = u.id WHERE listing_id = ? ORDER BY created_at DESC");
+                    $stmt->execute([$product['id']]);
+                    $reviews = $stmt->fetchAll();
+                    ?>
+
+                    <?php if (count($reviews) > 0): ?>
+                        <?php foreach ($reviews as $review): ?>
+                            <div class="card mb-2 border-0 shadow-sm">
+                                <div class="card-body py-2">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-bold small"><?= htmlspecialchars($review['reviewer_name']) ?></span>
+                                        <div class="text-warning small">
+                                            <?php for($i=0; $i<$review['rating']; $i++) echo '<i class="fas fa-star"></i>'; ?>
+                                        </div>
+                                    </div>
+                                    <p class="mb-0 small text-muted"><?= htmlspecialchars($review['comment']) ?></p>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p class="text-muted small">Sem avaliações ainda.</p>
+                    <?php endif; ?>
+
+                    <?php if (isLoggedIn() && $_SESSION['user_id'] != $product['seller_id']): ?>
+                        <form method="POST" class="mt-3">
+                            <label class="form-label small fw-bold">Deixar Avaliação</label>
+                            <div class="d-flex gap-2 align-items-center mb-2">
+                                <select name="rating" class="form-select form-select-sm w-auto rounded-pill" required>
+                                    <option value="5">5 Estrelas</option>
+                                    <option value="4">4 Estrelas</option>
+                                    <option value="3">3 Estrelas</option>
+                                    <option value="2">2 Estrelas</option>
+                                    <option value="1">1 Estrela</option>
+                                </select>
+                                <input type="text" name="comment" class="form-control form-control-sm rounded-pill" placeholder="O seu comentário...">
+                                <button type="submit" class="btn btn-sm btn-dark rounded-circle"><i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </form>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
