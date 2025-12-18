@@ -1,6 +1,8 @@
 <?php
 // backend/auth.php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once __DIR__ . '/db.php';
 
 function registerUser($name, $email, $password, $role = 'community', $location = '') {

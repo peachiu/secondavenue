@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once '../backend/db.php';
 require_once '../backend/auth.php';
 
@@ -162,8 +164,11 @@ if ($receiverId) {
                 <a href="#" class="text-white-50 hover-white"><i class="fab fa-twitter fa-lg"></i></a>
                 <a href="#" class="text-white-50 hover-white"><i class="fab fa-facebook fa-lg"></i></a>
             </div>
-            <p class="mb-1 text-white-50">&copy; 2026 Second Avenue. Desenvolvido por <a href="https://github.com/peachiu" class="text-white-50 text-decoration-none fw-bold">peachiu ✿</a></p>
-            <small class="text-white-50">PAP - Curso Profissional Técnico de Gestão e Programação de Sistemas Informáticos</small>
+            <p class="mb-1 text-white-50">&copy; 2026 Second Avenue. Desenvolvido por <a
+                    href="https://github.com/peachiu" class="text-white-50 text-decoration-none fw-bold">peachiu ✿</a>
+            </p>
+            <small class="text-white-50">PAP - Curso Profissional Técnico de Gestão e Programação de Sistemas
+                Informáticos</small>
         </div>
     </footer>
 

@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once '../backend/auth.php';
 
 $error = '';
@@ -7,7 +9,7 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
-    
+
     $result = loginUser($email, $password);
     if ($result['success']) {
         header('Location: index.php');
@@ -19,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="pt-pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body class="d-flex align-items-center justify-content-center min-vh-100 bg-light">
 
     <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
@@ -70,11 +74,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="#" class="text-white-50 hover-white"><i class="fab fa-twitter fa-lg"></i></a>
                 <a href="#" class="text-white-50 hover-white"><i class="fab fa-facebook fa-lg"></i></a>
             </div>
-            <p class="mb-1 text-white-50">&copy; 2026 Second Avenue. Desenvolvido por <a href="https://github.com/peachiu" class="text-white-50 text-decoration-none fw-bold">peachiu ✿</a></p>
-            <small class="text-white-50">PAP - Curso Profissional Técnico de Gestão e Programação de Sistemas Informáticos</small>
+            <p class="mb-1 text-white-50">&copy; 2026 Second Avenue. Desenvolvido por <a
+                    href="https://github.com/peachiu" class="text-white-50 text-decoration-none fw-bold">peachiu ✿</a>
+            </p>
+            <small class="text-white-50">PAP - Curso Profissional Técnico de Gestão e Programação de Sistemas
+                Informáticos</small>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
