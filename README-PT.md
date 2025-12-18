@@ -42,5 +42,23 @@ Este projeto foi desenvolvido para oferecer uma experiência completa de comérc
 - [ ] Self-hosting do site em hardware físico [cite: 4]
 - [ ] Relatório Final e Defesa Oral [cite: 4]
 
+## ⚙️ Como Instalar (Servidor Local)
+
+Para executar este projeto localmente, necessitarás de um ambiente de servidor local como o **XAMPP** ou o **Wampserver**.
+
+1.  **Transferência e Instalação:**
+    *   [Descarregar XAMPP](https://www.apachefriends.org/) ou [Descarregar Wampserver](https://www.wampserver.com/).
+2.  **Localização do Projeto:**
+    *   Copia a pasta do projeto para o diretório raiz do teu servidor:
+        *   **XAMPP:** `C:\xampp\htdocs\secondavenue`
+        *   **Wampserver:** `C:\wamp64\www\secondavenue`
+3.  **Configuração da Base de Dados:**
+    *   Inicia o **Apache** e o **MySQL** através do painel de controlo do teu servidor.
+    *   Acede ao teu navegador e visita: `http://localhost/secondavenue/setup_db.php`
+    *   Aguarda pela mensagem de sucesso. Isto criará automaticamente a base de dados e as tabelas necessárias.
+4.  **Aceder ao Website:**
+    *   Introduz `http://localhost/secondavenue/website/index.php` no teu navegador.
+5.  **Nota Importante:**
+    *   Certifica-te de que o utilizador do MySQL é `root` e não tem palavra-passe (configuração padrão do XAMPP/WAMP). Caso tenhas uma configuração diferente, atualiza os dados em `backend/db.php`.
 ## 📬 Contacto
 Criado por **peachiu**

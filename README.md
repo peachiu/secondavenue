@@ -42,5 +42,23 @@ This project is built to offer a complete e-commerce experience:
 - [ ] Self-hosting on physical hardware 
 - [ ] Final Report & Presentation 
 
+## ⚙️ How to Deploy (Local Server)
+
+To run this project locally, you will need a local server environment like **XAMPP** or **Wampserver**.
+
+1.  **Download and Install:**
+    *   [Download XAMPP](https://www.apachefriends.org/) or [Download Wampserver](https://www.wampserver.com/).
+2.  **Project Location:**
+    *   Copy the project folder to the server's root directory:
+        *   **XAMPP:** `C:\xampp\htdocs\secondavenue`
+        *   **Wampserver:** `C:\wamp64\www\secondavenue`
+3.  **Database Setup:**
+    *   Start **Apache** and **MySQL** from your server's control panel.
+    *   Open your browser and visit: `http://localhost/secondavenue/setup_db.php`
+    *   Wait for the "success" message. This will automatically create the database and tables.
+4.  **Access the Website:**
+    *   Enter `http://localhost/secondavenue/website/index.php` in your browser.
+5.  **Important Note:**
+    *   Ensure your MySQL user is `root` and has no password (default for both XAMPP and WAMP). If you have a different configuration, update the credentials in `backend/db.php`.
 ## 📬 Contact
 Created by **peachiu**
