@@ -1,15 +1,15 @@
 :root {
-    /* Trustworthy Palette */
-    --primary-color: #0f172a; /* Deep Blue / Slate 900 */
+    /* Paleta de Cores de Confiança */
+    --primary-color: #0f172a; /* Azul Profundo / Slate 900 */
     --secondary-color: #334155; /* Slate 700 */
-    --accent-color: #86efac; /* Pastel Green / Emerald 300 */
+    --accent-color: #86efac; /* Verde Pastel / Emerald 300 */
     --accent-hover: #4ade80; /* Emerald 400 */
     --text-primary: #1e293b; /* Slate 800 */
     --text-secondary: #64748b; /* Slate 500 */
     --bg-body: #f8fafc; /* Slate 50 */
     --bg-card: #ffffff;
     
-    /* UI Constants */
+    /* Constantes de UI */
     --card-radius: 20px;
     --nav-height: 80px;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
@@ -34,9 +34,9 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* Floating Navbar */
+/* Barra de Navegação Flutuante */
 .navbar {
-    background: rgba(255, 255, 255, 0.85); /* Glass effect */
+    background: rgba(255, 255, 255, 0.85); /* Efeito de Vidro */
     backdrop-filter: blur(12px);
     border-radius: 50px;
     margin: 20px auto;
@@ -67,7 +67,7 @@ body {
     color: var(--primary-color) !important;
 }
 
-/* Buttons */
+/* Botões */
 .btn-primary {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
@@ -93,7 +93,7 @@ body {
     color: var(--primary-color);
 }
 
-/* Cards */
+/* Cartões */
 .card {
     background-color: var(--bg-card);
     border: none;
@@ -114,13 +114,13 @@ body {
     background-color: #e2e8f0;
 }
 
-/* Verified Tick */
+/* Ícone de Verificado */
 .verified-tick {
-    color: #3b82f6; /* Blue tick like generic social media */
+    color: #3b82f6; /* Ícone azul como em redes sociais genéricas */
     margin-left: 4px;
 }
 
-/* Footer */
+/* Rodapé */
 footer {
     background-color: var(--primary-color) !important;
     margin-top: 4rem;
@@ -128,10 +128,36 @@ footer {
     border-top-right-radius: 40px;
 }
 
-/* Hero Section */
+/* Secção Principal (Hero) */
 .hero {
-    padding: 6rem 0;
+    padding: 8rem 0;
     text-align: center;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+}
+
+/* Barra de Filtros */
+.filter-card {
+    transition: all 0.3s ease;
+}
+
+.filter-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+}
+
+.product-card {
+    position: relative;
+    z-index: 1;
+}
+
+.product-card .stretched-link {
+    z-index: 2;
+}
+
+.product-card button {
+    position: relative;
+    z-index: 3;
 }
 
 .hero h1 {
@@ -140,7 +166,7 @@ footer {
     color: var(--primary-color);
 }
 
-/* Utilities */
+/* Utilitários */
 .text-accent {
     color: var(--accent-color);
 }

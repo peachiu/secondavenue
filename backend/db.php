@@ -3,24 +3,24 @@
 
 $host = 'localhost';
 $dbname = 'secondavenue';
-$username = 'root'; // Default XAMPP/WAMP user
-$password = '';     // Default XAMPP/WAMP password (empty)
+$username = 'root'; // Utilizador predefinido do XAMPP/WAMP
+$password = '';     // Palavra-passe predefinida do XAMPP/WAMP (vazia)
 
 try {
     $pdo = new PDO("mysql:host=$host", $username, $password);
     
-    // Create database if it doesn't exist (for local dev convenience)
+    // Criar a base de dados se não existir (por conveniência do desenvolvimento local)
     $pdo->exec("CREATE DATABASE IF NOT EXISTS `$dbname`");
     $pdo->exec("USE `$dbname`");
 
-    // Set error mode
+    // Definir o modo de erro
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-    // Import schema if tables don't exist (basic check)
-    // Note: In production you'd use migrations, but for this setup we'll keep it simple
-    // or run the SQL file manually. 
-    // Uncomment the line below if you want to auto-run the SQL on first connect (use with caution)
+    // Importar o esquema se as tabelas não existirem (verificação básica)
+    // Nota: Em produção seriam usadas migrações, mas para esta configuração vamos manter as coisas simples
+    // ou correr o ficheiro SQL manualmente. 	
+    // Descomente a linha abaixo se quiser auto-executar o SQL na primeira ligação (use com precaução)
     // $sql = file_get_contents(__DIR__ . '/../database.sql');
     // $pdo->exec($sql);
 

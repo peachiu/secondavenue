@@ -62,5 +62,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
+    <footer class="text-white py-5">
+        <div class="container text-center">
+            <h4 class="fw-bold mb-3">SECOND AVENUE</h4>
+            <div class="d-flex justify-content-center gap-4 mb-4">
+                <a href="#" class="text-white-50 hover-white"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="text-white-50 hover-white"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-white-50 hover-white"><i class="fab fa-facebook fa-lg"></i></a>
+            </div>
+            <p class="mb-1 text-white-50">&copy; 2026 Second Avenue. Desenvolvido por <a href="https://github.com/peachiu" class="text-white-50 text-decoration-none fw-bold">peachiu ✿</a></p>
+            <small class="text-white-50">PAP - Curso Profissional Técnico de Gestão e Programação de Sistemas Informáticos</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

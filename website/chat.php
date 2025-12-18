@@ -12,7 +12,7 @@ $currentUserId = $_SESSION['user_id'];
 $receiverId = $_GET['receiver_id'] ?? null;
 $listingId = $_GET['listing_id'] ?? null;
 
-// Send Message
+// Enviar Mensagem
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'], $_POST['receiver_id'])) {
     $content = trim($_POST['content']);
     $recv = $_POST['receiver_id'];
@@ -21,13 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'], $_POST['re
     if ($content) {
         $stmt = $pdo->prepare("INSERT INTO messages (sender_id, receiver_id, listing_id, content) VALUES (?, ?, ?, ?)");
         $stmt->execute([$currentUserId, $recv, $lst, $content]);
-        // Redirect to self to prevent resubmission
+        // Redirecionar para si mesmo para evitar reenvio
         header("Location: chat.php?receiver_id=$recv&listing_id=$lst");
         exit;
     }
 }
 
-// Fetch Conversations (Users communicated with)
+// Procurar Conversas (Utilizadores com quem comunicou)
 $stmt = $pdo->prepare("
     SELECT DISTINCT u.id, u.name 
     FROM messages m
@@ -37,7 +37,7 @@ $stmt = $pdo->prepare("
 $stmt->execute([$currentUserId, $currentUserId, $currentUserId]);
 $conversations = $stmt->fetchAll();
 
-// Fetch Messages for current conversation
+// Procurar Mensagens para a conversa atual
 $messages = [];
 if ($receiverId) {
     $stmt = $pdo->prepare("
@@ -100,7 +100,7 @@ if ($receiverId) {
     </nav>
 
     <div class="container-fluid chat-container d-flex">
-        <!-- Sidebar -->
+        <!-- Barra Lateral -->
         <div class="border-end p-3 d-none d-md-block" style="width: 300px;">
             <h5 class="fw-bold mb-3">Conversas</h5>
             <div class="list-group list-group-flush">
@@ -122,7 +122,7 @@ if ($receiverId) {
             </div>
         </div>
 
-        <!-- Chat Area -->
+        <!-- Área de Chat -->
         <div class="flex-grow-1 d-flex flex-column p-0">
             <?php if ($receiverId): ?>
                 <div class="message-box p-4 d-flex flex-column">
@@ -154,6 +154,20 @@ if ($receiverId) {
         </div>
     </div>
 
+    <footer class="text-white py-5">
+        <div class="container text-center">
+            <h4 class="fw-bold mb-3">SECOND AVENUE</h4>
+            <div class="d-flex justify-content-center gap-4 mb-4">
+                <a href="#" class="text-white-50 hover-white"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="text-white-50 hover-white"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-white-50 hover-white"><i class="fab fa-facebook fa-lg"></i></a>
+            </div>
+            <p class="mb-1 text-white-50">&copy; 2026 Second Avenue. Desenvolvido por <a href="https://github.com/peachiu" class="text-white-50 text-decoration-none fw-bold">peachiu ✿</a></p>
+            <small class="text-white-50">PAP - Curso Profissional Técnico de Gestão e Programação de Sistemas Informáticos</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

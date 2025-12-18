@@ -9,7 +9,7 @@ if (!$id) {
     exit;
 }
 
-// Fetch listing details + Seller info
+// Procurar detalhes do anúncio + informação do Vendedor
 $stmt = $pdo->prepare("
     SELECT l.*, u.name as seller_name, u.location as seller_location, u.is_verified, u.id as seller_id
     FROM listings l
@@ -24,7 +24,7 @@ if (!$product) {
     exit;
 }
 
-// Handle Reviews logic later (placeholder)
+// Tratar lógica de Avaliações mais tarde (espaço reservado)
 ?>
 <!DOCTYPE html>
 <html lang="pt-pt">
@@ -48,7 +48,7 @@ if (!$product) {
 
     <div class="container py-5">
         <div class="row g-5">
-            <!-- Product Image -->
+            <!-- Imagem do Produto -->
             <div class="col-md-6">
                 <div class="card p-5 bg-white text-center align-items-center justify-content-center shadow-sm"
                     style="height: 400px;">
@@ -61,7 +61,7 @@ if (!$product) {
                 </div>
             </div>
 
-            <!-- Details -->
+            <!-- Detalhes -->
             <div class="col-md-6">
                 <div class="mb-3">
                     <span
@@ -105,7 +105,7 @@ if (!$product) {
                     <p class="text-muted"><?= nl2br(htmlspecialchars($product['description'])) ?></p>
                 </div>
 
-                <!-- Stock Info -->
+                <!-- Informação de Stock -->
                 <div class="d-flex align-items-center gap-2 mb-4">
                     <span class="fw-bold">Disponibilidade:</span>
                     <?php if ($product['stock'] > 0): ?>
@@ -117,15 +117,15 @@ if (!$product) {
 
                 <hr>
 
-                <!-- Reviews Section -->
+                <!-- Secção de Avaliações -->
                 <div class="mt-4">
                     <h5 class="fw-bold mb-3">Avaliações</h5>
-                    
+
                     <?php
-                    // Handle Review Submission
+                    // Tratar Submissão de Avaliação
                     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rating'])) {
                         if (isLoggedIn()) {
-                            $rating = (int)$_POST['rating'];
+                            $rating = (int) $_POST['rating'];
                             $comment = $_POST['comment'] ?? '';
                             $stmt = $pdo->prepare("INSERT INTO reviews (reviewer_id, listing_id, seller_id, rating, comment) VALUES (?, ?, ?, ?, ?)");
                             $stmt->execute([$_SESSION['user_id'], $product['id'], $product['seller_id'], $rating, $comment]);
@@ -135,7 +135,7 @@ if (!$product) {
                         }
                     }
 
-                    // Fetch Reviews
+                    // Procurar Avaliações
                     $stmt = $pdo->prepare("SELECT r.*, u.name as reviewer_name FROM reviews r JOIN users u ON r.reviewer_id = u.id WHERE listing_id = ? ORDER BY created_at DESC");
                     $stmt->execute([$product['id']]);
                     $reviews = $stmt->fetchAll();
@@ -148,7 +148,8 @@ if (!$product) {
                                     <div class="d-flex justify-content-between">
                                         <span class="fw-bold small"><?= htmlspecialchars($review['reviewer_name']) ?></span>
                                         <div class="text-warning small">
-                                            <?php for($i=0; $i<$review['rating']; $i++) echo '<i class="fas fa-star"></i>'; ?>
+                                            <?php for ($i = 0; $i < $review['rating']; $i++)
+                                                echo '<i class="fas fa-star"></i>'; ?>
                                         </div>
                                     </div>
                                     <p class="mb-0 small text-muted"><?= htmlspecialchars($review['comment']) ?></p>
@@ -170,8 +171,10 @@ if (!$product) {
                                     <option value="2">2 Estrelas</option>
                                     <option value="1">1 Estrela</option>
                                 </select>
-                                <input type="text" name="comment" class="form-control form-control-sm rounded-pill" placeholder="O seu comentário...">
-                                <button type="submit" class="btn btn-sm btn-dark rounded-circle"><i class="fas fa-arrow-right"></i></button>
+                                <input type="text" name="comment" class="form-control form-control-sm rounded-pill"
+                                    placeholder="O seu comentário...">
+                                <button type="submit" class="btn btn-sm btn-dark rounded-circle"><i
+                                        class="fas fa-arrow-right"></i></button>
                             </div>
                         </form>
                     <?php endif; ?>
@@ -180,6 +183,23 @@ if (!$product) {
         </div>
     </div>
 
+    <footer class="text-white py-5">
+        <div class="container text-center">
+            <h4 class="fw-bold mb-3">SECOND AVENUE</h4>
+            <div class="d-flex justify-content-center gap-4 mb-4">
+                <a href="#" class="text-white-50 hover-white"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="text-white-50 hover-white"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-white-50 hover-white"><i class="fab fa-facebook fa-lg"></i></a>
+            </div>
+            <p class="mb-1 text-white-50">&copy; 2026 Second Avenue. Desenvolvido por <a
+                    href="https://github.com/peachiu" class="text-white-50 text-decoration-none fw-bold">peachiu ✿</a>
+            </p>
+            <small class="text-white-50">PAP - Curso Profissional Técnico de Gestão e Programação de Sistemas
+                Informáticos</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

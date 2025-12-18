@@ -6,18 +6,18 @@ require_once __DIR__ . '/db.php';
 function registerUser($name, $email, $password, $role = 'community', $location = '') {
     global $pdo;
     
-    // Check if email exists
+    // Verifica se o email já existe
     $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
     $stmt->execute([$email]);
     if ($stmt->fetch()) {
         return ['success' => false, 'message' => 'Email already registered.'];
     }
 
-    // Hash password
+    // Encriptar a palavra-passe
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    // Professional users might default to verified=0, community=1 (or 0 if email verification needed)
-    // Per requirements: Professionals need verification. Community can be auto-verified for now.
+    // Utilizadores profissionais podem ter verificação por defeito a 0, utilizadores comuns a 1 (ou 0 se for necessária verificação por email)
+    // Conforme os requisitos: Profissionais precisam de verificação. Comuns podem ser auto-verificados por agora.
     $isVerified = ($role === 'professional') ? 0 : 1; 
 
     $sql = "INSERT INTO users (name, email, password, role, location, is_verified) VALUES (?, ?, ?, ?, ?, ?)";

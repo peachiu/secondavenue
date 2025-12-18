@@ -1,6 +1,6 @@
--- Database Schema for Second Avenue
+-- Esquema da Base de Dados para o Second Avenue
 
--- Users Table
+-- Tabela de Utilizadores
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Listings Table
+-- Tabela de Anúncios
 CREATE TABLE IF NOT EXISTS listings (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -20,15 +20,15 @@ CREATE TABLE IF NOT EXISTS listings (
     description TEXT,
     price DECIMAL(10, 2) NOT NULL,
     image_url VARCHAR(255),
-    category VARCHAR(100), -- e.g., 'Computers', 'Phones'
-    tags VARCHAR(255), -- e.g., 'Gaming, Office, New'
+    category VARCHAR(100), -- ex., 'Computadores', 'Telemóveis'
+    tags VARCHAR(255), -- ex., 'Gaming, Escritório, Novo'
     stock INT DEFAULT 1,
     views INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Messages Table
+-- Tabela de Mensagens
 CREATE TABLE IF NOT EXISTS messages (
     id INT AUTO_INCREMENT PRIMARY KEY,
     sender_id INT NOT NULL,
@@ -42,12 +42,12 @@ CREATE TABLE IF NOT EXISTS messages (
     FOREIGN KEY (listing_id) REFERENCES listings(id) ON DELETE SET NULL
 );
 
--- Reviews Table
+-- Tabela de Avaliações
 CREATE TABLE IF NOT EXISTS reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
     reviewer_id INT NOT NULL,
-    listing_id INT DEFAULT NULL, -- Review for a specific product
-    seller_id INT DEFAULT NULL, -- Review for a seller directly
+    listing_id INT DEFAULT NULL, -- Avaliação para um produto específico
+    seller_id INT DEFAULT NULL, -- Avaliação direta para um vendedor
     rating INT CHECK (rating >= 1 AND rating <= 5),
     comment TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
