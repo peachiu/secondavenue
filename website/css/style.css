@@ -57,6 +57,7 @@ body {
     backdrop-filter: blur(12px);
     border-radius: 50px;
     margin: 20px auto;
+    top: 20px !important; /* Mantém espaço no topo ao fazer scroll */
     width: 90%;
     max-width: 1200px;
     box-shadow: var(--shadow-lg);

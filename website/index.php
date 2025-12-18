@@ -98,6 +98,7 @@ $listings = $stmt->fetchAll();
                             <i class="fas fa-search text-muted"></i>
                         </span>
                         <input type="text" name="q" class="form-control border-0 bg-transparent ps-0"
+                            style="color: var(--text-primary);"
                             placeholder="Pesquisar produtos..." value="<?= htmlspecialchars($search) ?>">
                     </div>
                 </div>

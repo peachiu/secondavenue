@@ -162,7 +162,7 @@ if ($currentUser) {
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <div class="dropdown-item d-flex justify-content-between align-items-center"
+                                <div class="dropdown-item d-flex justify-content-between align-items-center gap-3"
                                     id="themeToggleBtn" style="cursor: pointer;">
                                     <span><i class="fas fa-moon me-2 text-secondary"></i> Tema Escuro</span>
                                     <div class="form-check form-switch m-0">
