@@ -40,20 +40,16 @@ if (!$product) {
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="bg-light">
+<body>
 
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container-fluid px-4">
-            <a class="navbar-brand" href="index.php">SECOND AVENUE</a>
-        </div>
-    </nav>
+    <?php include 'includes/navbar.php'; ?>
 
     <div class="container py-5">
         <div class="row g-5">
             <!-- Imagem do Produto -->
             <div class="col-md-6">
-                <div class="card p-5 bg-white text-center align-items-center justify-content-center shadow-sm"
-                    style="height: 400px;">
+                <div class="card p-5 text-center align-items-center justify-content-center shadow-sm"
+                    style="height: 400px; background-color: var(--bg-card);">
                     <?php if ($product['image_url']): ?>
                         <img src="<?= htmlspecialchars($product['image_url']) ?>" alt="Produto" class="img-fluid"
                             style="max-height: 100%;">

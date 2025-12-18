@@ -5,9 +5,10 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 require_once __DIR__ . '/db.php';
 
-function registerUser($name, $email, $password, $role = 'community', $location = '') {
+function registerUser($name, $email, $password, $role = 'community', $location = '')
+{
     global $pdo;
-    
+
     // Verifica se o email já existe
     $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
     $stmt->execute([$email]);
@@ -20,11 +21,14 @@ function registerUser($name, $email, $password, $role = 'community', $location =
 
     // Utilizadores profissionais podem ter verificação por defeito a 0, utilizadores comuns a 1 (ou 0 se for necessária verificação por email)
     // Conforme os requisitos: Profissionais precisam de verificação. Comuns podem ser auto-verificados por agora.
-    $isVerified = ($role === 'professional') ? 0 : 1; 
+    // Por defeito, ninguém começa verificado (badge de Profissional). 
+    // O administrador deve aprovar os profissionais. 
+    // Os utilizadores da comunidade não têm badge, por isso is_verified = 0 também.
+    $isVerified = 0;
 
     $sql = "INSERT INTO users (name, email, password, role, location, is_verified) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
-    
+
     try {
         $stmt->execute([$name, $email, $hashedPassword, $role, $location, $isVerified]);
         return ['success' => true, 'message' => 'User registered successfully.'];
@@ -33,7 +37,8 @@ function registerUser($name, $email, $password, $role = 'community', $location =
     }
 }
 
-function loginUser($email, $password) {
+function loginUser($email, $password)
+{
     global $pdo;
 
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
@@ -43,6 +48,7 @@ function loginUser($email, $password) {
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['name'];
+        $_SESSION['user_email'] = $user['email']; // Guardar email na sessão
         $_SESSION['user_role'] = $user['role'];
         $_SESSION['user_verified'] = $user['is_verified'];
         return ['success' => true, 'message' => 'Login successful.'];
@@ -51,21 +57,26 @@ function loginUser($email, $password) {
     }
 }
 
-function isLoggedIn() {
+function isLoggedIn()
+{
     return isset($_SESSION['user_id']);
 }
 
-function getCurrentUser() {
-    if (!isLoggedIn()) return null;
+function getCurrentUser()
+{
+    if (!isLoggedIn())
+        return null;
     return [
         'id' => $_SESSION['user_id'],
         'name' => $_SESSION['user_name'],
+        'email' => $_SESSION['user_email'] ?? '', // Fallback seguro para sessões antigas
         'role' => $_SESSION['user_role'],
         'verified' => $_SESSION['user_verified']
     ];
 }
 
-function logoutUser() {
+function logoutUser()
+{
     session_destroy();
 }
 ?>

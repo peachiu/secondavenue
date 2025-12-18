@@ -32,41 +32,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+<body class="d-flex flex-column align-items-center justify-content-center min-vh-100">
 
-    <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
-        <div class="card-body">
-            <div class="text-center mb-4">
-                <a href="index.php" class="text-decoration-none h3 fw-bold text-dark">SECOND AVENUE</a>
-                <p class="text-muted small mt-2">Bem-vindo de volta!</p>
-            </div>
+    <?php include 'includes/navbar.php'; ?>
 
-            <?php if ($error): ?>
-                <div class="alert alert-danger py-2 small"><?= htmlspecialchars($error) ?></div>
-            <?php endif; ?>
-
-            <form method="POST">
-                <div class="mb-3">
-                    <label class="form-label small fw-bold">Email</label>
-                    <input type="email" name="email" class="form-control rounded-pill" required>
+    <div class="flex-grow-1 d-flex align-items-center justify-content-center w-100">
+        <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <h3 class="fw-bold">Entrar</h3>
+                    <p class="text-muted small mt-2">Bem-vindo de volta!</p>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label small fw-bold">Palavra-passe</label>
-                    <input type="password" name="password" class="form-control rounded-pill" required>
-                </div>
-                <div class="d-grid mb-3">
-                    <button type="submit" class="btn btn-primary btn-lg fs-6 fw-bold">Entrar</button>
-                </div>
-            </form>
 
-            <div class="text-center mt-3 small">
-                <span class="text-muted">Não tens conta?</span>
-                <a href="register.php" class="text-primary fw-bold text-decoration-none">Registar</a>
+                <?php if ($error): ?>
+                    <div class="alert alert-danger py-2 small"><?= htmlspecialchars($error) ?></div>
+                <?php endif; ?>
+
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Email</label>
+                        <input type="email" name="email" class="form-control rounded-pill" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Palavra-passe</label>
+                        <input type="password" name="password" class="form-control rounded-pill" required>
+                    </div>
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary btn-lg fs-6 fw-bold">Entrar</button>
+                    </div>
+                </form>
+
+                <div class="text-center mt-3 small">
+                    <span class="text-muted">Não tens conta?</span>
+                    <a href="register.php" class="text-primary fw-bold text-decoration-none">Registar</a>
+                </div>
             </div>
         </div>
+
+    </div>
     </div>
 
-    <footer class="text-white py-5">
+    <footer class="text-white py-5 mt-auto w-100">
         <div class="container text-center">
             <h4 class="fw-bold mb-3">SECOND AVENUE</h4>
             <div class="d-flex justify-content-center gap-4 mb-4">

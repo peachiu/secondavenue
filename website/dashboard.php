@@ -35,14 +35,7 @@ $listingCount = count($myListings);
 
 <body>
 
-    <nav class="navbar navbar-expand-lg border-bottom px-4"
-        style="margin-top: 0; border-radius: 0; width: 100%; max-width: 100%; background: white;">
-        <a class="navbar-brand" href="index.php">SECOND AVENUE</a>
-        <div class="ms-auto d-flex align-items-center gap-3">
-            <span class="fw-bold"><?= htmlspecialchars($user['name']) ?></span>
-            <a href="../backend/logout.php" class="btn btn-sm btn-outline-danger rounded-pill">Sair</a>
-        </div>
-    </nav>
+    <?php include 'includes/navbar.php'; ?>
 
     <div class="container py-5">
         <div class="row g-4">
@@ -50,8 +43,8 @@ $listingCount = count($myListings);
             <div class="col-md-3">
                 <div class="card p-4 text-center">
                     <div class="mb-3">
-                        <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center text-primary"
-                            style="width: 80px; height: 80px;">
+                        <div class="rounded-circle d-inline-flex align-items-center justify-content-center text-primary"
+                            style="width: 80px; height: 80px; background-color: var(--bg-body);">
                             <i class="fas fa-user fa-2x"></i>
                         </div>
                     </div>
@@ -90,7 +83,7 @@ $listingCount = count($myListings);
                     <div class="card">
                         <div class="table-responsive">
                             <table class="table table-hover align-middle mb-0">
-                                <thead class="bg-light">
+                                <thead style="background-color: var(--bg-body);">
                                     <tr>
                                         <th class="ps-4">Produto</th>
                                         <th>Preço</th>
@@ -104,12 +97,13 @@ $listingCount = count($myListings);
                                         <tr>
                                             <td class="ps-4">
                                                 <div class="d-flex align-items-center">
-                                                    <div class="bg-light rounded d-flex align-items-center justify-content-center me-3"
-                                                        style="width: 40px; height: 40px;">
+                                                    <div class="rounded d-flex align-items-center justify-content-center me-3"
+                                                        style="width: 40px; height: 40px; background-color: var(--bg-body);">
                                                         <i class="fas fa-box text-secondary"></i>
                                                     </div>
-                                                    <span
-                                                        class="fw-bold text-dark"><?= htmlspecialchars($listing['title']) ?></span>
+                                                    <a href="product.php?id=<?= $listing['id'] ?>" class="text-decoration-none">
+                                                        <span class="fw-bold"><?= htmlspecialchars($listing['title']) ?></span>
+                                                    </a>
                                                 </div>
                                             </td>
                                             <td class="fw-bold"><?= number_format($listing['price'], 2) ?> €</td>
@@ -120,9 +114,9 @@ $listingCount = count($myListings);
                                             </td>
                                             <td>Ativo</td>
                                             <td>
-                                                <button class="btn btn-sm btn-light text-primary"><i
+                                                <button class="btn btn-sm btn-link text-primary"><i
                                                         class="fas fa-edit"></i></button>
-                                                <button class="btn btn-sm btn-light text-danger"><i
+                                                <button class="btn btn-sm btn-link text-danger"><i
                                                         class="fas fa-trash"></i></button>
                                             </td>
                                         </tr>

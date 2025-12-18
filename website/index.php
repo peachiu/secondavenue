@@ -65,97 +65,67 @@ $listings = $stmt->fetchAll();
 
 <body>
 
-    <!-- Barra de Navegação Flutuante -->
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container-fluid px-4">
-            <a class="navbar-brand" href="index.php">SECOND AVENUE</a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarContent">
-                <form action="index.php" method="GET" class="d-flex mx-auto my-2 my-lg-0 w-50 position-relative">
-                    <input class="form-control rounded-pill ps-4 pe-5" type="search" name="q" placeholder="O que procuras hoje?"
-                        aria-label="Pesquisar" value="<?= htmlspecialchars($search) ?>">
-                    <button class="btn btn-link position-absolute end-0 top-0 text-muted" type="submit"
-                        style="margin-right: 10px;">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
-
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-3">
-                    <?php if ($currentUser): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="dashboard.php">
-                                <i class="fas fa-user-circle fa-lg me-1"></i> <?= htmlspecialchars($currentUser['name']) ?>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-outline-danger btn-sm rounded-pill" href="../backend/logout.php">Sair</a>
-                        </li>
-                    <?php else: ?>
-                        <li class="nav-item">
-                            <a class="btn btn-primary btn-sm rounded-pill fw-bold" href="login.php">Entrar</a>
-                        </li>
-                    <?php endif; ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="cart.php" title="Carrinho">
-                            <i class="fas fa-shopping-cart fa-lg"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <!-- Navbar Global Included -->
+    <?php include 'includes/navbar.php'; ?>
 
     <!-- Secção Principal (Hero) -->
-    <header class="hero">
-        <div class="container">
-            <h1 class="display-3 mb-3">Tecnologia com <span class="text-accent">Confiança</span></h1>
-            <p class="lead text-secondary mb-5 w-75 mx-auto">A plataforma verificada para comprar e vender material
-                informático. Junte-se à nossa comunidade de vendedores profissionais.</p>
-            <div class="d-flex justify-content-center gap-3">
-                <a href="#produtos" class="btn btn-primary btn-lg px-5">Explorar Ofertas</a>
-                <?php if ($currentUser): ?>
-                    <a href="create_listing.php" class="btn btn-accent btn-lg px-5">Vender Artigo</a>
-                <?php else: ?>
-                    <a href="register.php" class="btn btn-outline-dark btn-lg px-5">Registar Conta</a>
-                <?php endif; ?>
+    <?php if (!$search && empty($_GET['category']) && empty($_GET['sort'])): ?>
+        <header class="hero">
+            <div class="container">
+                <h1 class="display-3 mb-3">Tecnologia com <span class="text-accent">Confiança</span></h1>
+                <p class="lead text-secondary mb-5 w-75 mx-auto">A plataforma verificada para comprar e vender material
+                    informático. Junte-se à nossa comunidade de vendedores profissionais.</p>
+                <div class="d-flex justify-content-center align-items-center gap-3">
+                    <a href="#produtos" class="btn btn-primary btn-lg px-5">Explorar Ofertas</a>
+                    <?php if ($currentUser): ?>
+                        <a href="create_listing.php" class="btn btn-accent btn-lg px-5">Vender Artigo</a>
+                    <?php else: ?>
+                        <a href="register.php" class="btn btn-outline-dark btn-lg px-5">Registar Conta</a>
+                    <?php endif; ?>
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
+    <?php endif; ?>
 
     <!-- Filtros e Barra de Pesquisa Secundária -->
     <div class="container mb-5">
-        <div class="card p-3 border-0 shadow-sm rounded-4 bg-white filter-card" style="margin-top: -40px; position: relative; z-index: 10;">
+        <div class="card p-4 border-0 shadow-lg rounded-4 filter-card"
+            style="margin-top: -40px; position: relative; z-index: 10; background-color: var(--bg-card);">
             <form method="GET" class="row g-3 align-items-center">
                 <div class="col-lg-4 col-md-12">
                     <div class="input-group">
                         <span class="input-group-text bg-transparent border-0 ps-3">
                             <i class="fas fa-search text-muted"></i>
                         </span>
-                        <input type="text" name="q" class="form-control border-0 bg-transparent ps-0" 
-                               placeholder="Pesquisar produtos..." value="<?= htmlspecialchars($search) ?>">
+                        <input type="text" name="q" class="form-control border-0 bg-transparent ps-0"
+                            placeholder="Pesquisar produtos..." value="<?= htmlspecialchars($search) ?>">
                     </div>
                 </div>
-                
+
                 <div class="col-lg-3 col-md-4">
-                    <select name="category" class="form-select border-0 bg-light rounded-pill">
+                    <select name="category" class="form-select border-0 rounded-pill"
+                        style="background-color: var(--bg-body); color: var(--text-primary);">
                         <option value="Todas">Todas as Categorias</option>
-                        <option value="Computadores" <?= $category == 'Computadores' ? 'selected' : '' ?>>Computadores</option>
-                        <option value="Smartphones" <?= $category == 'Smartphones' ? 'selected' : '' ?>>Smartphones</option>
+                        <option value="Computadores" <?= $category == 'Computadores' ? 'selected' : '' ?>>Computadores
+                        </option>
+                        <option value="Smartphones" <?= $category == 'Smartphones' ? 'selected' : '' ?>>Smartphones
+                        </option>
                         <option value="Áudio" <?= $category == 'Áudio' ? 'selected' : '' ?>>Áudio</option>
-                        <option value="Componentes" <?= $category == 'Componentes' ? 'selected' : '' ?>>Componentes</option>
+                        <option value="Componentes" <?= $category == 'Componentes' ? 'selected' : '' ?>>Componentes
+                        </option>
+                        <option value="Consolas" <?= $category == 'Consolas' ? 'selected' : '' ?>>Consolas</option>
                         <option value="Outros" <?= $category == 'Outros' ? 'selected' : '' ?>>Outros</option>
                     </select>
                 </div>
 
                 <div class="col-lg-3 col-md-4">
-                    <select name="sort" class="form-select border-0 bg-light rounded-pill">
+                    <select name="sort" class="form-select border-0 rounded-pill"
+                        style="background-color: var(--bg-body); color: var(--text-primary);">
                         <option value="newest" <?= $sort == 'newest' ? 'selected' : '' ?>>Mais recentes</option>
-                        <option value="price_asc" <?= $sort == 'price_asc' ? 'selected' : '' ?>>Preço: Baixo a Alto</option>
-                        <option value="price_desc" <?= $sort == 'price_desc' ? 'selected' : '' ?>>Preço: Alto a Baixo</option>
+                        <option value="price_asc" <?= $sort == 'price_asc' ? 'selected' : '' ?>>Preço: Baixo a Alto
+                        </option>
+                        <option value="price_desc" <?= $sort == 'price_desc' ? 'selected' : '' ?>>Preço: Alto a Baixo
+                        </option>
                     </select>
                 </div>
 
@@ -178,7 +148,8 @@ $listings = $stmt->fetchAll();
             <?php if ($search || ($category && $category !== 'Todas')): ?>
                 <a href="index.php" class="text-decoration-none text-muted small">Limpar Filtros</a>
             <?php else: ?>
-                <a href="search.php" class="text-decoration-none text-primary fw-bold">Ver tudo <i class="fas fa-arrow-right"></i></a>
+                <a href="search.php" class="text-decoration-none text-primary fw-bold">Ver tudo <i
+                        class="fas fa-arrow-right"></i></a>
             <?php endif; ?>
         </div>
 
@@ -188,10 +159,11 @@ $listings = $stmt->fetchAll();
                     <div class="col">
                         <div class="card h-100 product-card">
                             <a href="product.php?id=<?= $item['id'] ?>" class="stretched-link"></a>
-                            <div class="card-img-top d-flex align-items-center justify-content-center text-secondary bg-light">
+                            <div class="card-img-top d-flex align-items-center justify-content-center text-secondary p-2"
+                                style="background-color: var(--bg-body);">
                                 <?php if ($item['image_url']): ?>
                                     <img src="<?= htmlspecialchars($item['image_url']) ?>"
-                                        alt="<?= htmlspecialchars($item['title']) ?>" class="w-100 h-100 object-fit-cover">
+                                        alt="<?= htmlspecialchars($item['title']) ?>" class="w-100 h-100 object-fit-contain">
                                 <?php else: ?>
                                     <i class="fas fa-box-open fa-3x opacity-50"></i>
                                 <?php endif; ?>
@@ -199,8 +171,8 @@ $listings = $stmt->fetchAll();
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-start mb-2">
                                     <span
-                                        class="badge bg-light text-dark border"><?= htmlspecialchars($item['category'] ?? 'Geral') ?></span>
-                                    <?php if ($item['is_verified']): ?>
+                                        class="badge bg-secondary bg-opacity-10 text-secondary border-0 px-3"><?= htmlspecialchars($item['category'] ?? 'Geral') ?></span>
+                                    <?php if ($item['is_verified'] && $item['seller_role'] === 'professional'): ?>
                                         <span class="badge bg-primary bg-opacity-10 text-primary" title="Vendedor Profissional"><i
                                                 class="fas fa-check-circle"></i> Profissional</span>
                                     <?php else: ?>

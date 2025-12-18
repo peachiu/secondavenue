@@ -6,25 +6,41 @@
     --accent-hover: #4ade80; /* Emerald 400 */
     --text-primary: #1e293b; /* Slate 800 */
     --text-secondary: #64748b; /* Slate 500 */
-    --bg-body: #f8fafc; /* Slate 50 */
+    --bg-body: #f1f5f9; /* Slate 100 para mais contraste com cards */
     --bg-card: #ffffff;
+    --border-color: rgba(0, 0, 0, 0.08);
     
     /* Constantes de UI */
     --card-radius: 20px;
     --nav-height: 80px;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
-    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.08);
+    --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1);
 }
 
 [data-theme="dark"] {
-    --primary-color: #f8fafc;
-    --secondary-color: #cbd5e1;
-    --text-primary: #f1f5f9;
+    --primary-color: #3b82f6; 
+    --secondary-color: #94a3b8;
+    --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
-    --bg-body: #0f172a;
-    --bg-card: #1e293b;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+    --bg-body: #020617; 
+    --bg-card: #0f172a; 
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow-sm: 0 4px 6px rgba(0,0,0,0.4);
+    --shadow-md: 0 12px 20px rgba(0,0,0,0.5);
+    
+    /* Variáveis Específicas Dark Mode */
+    --bg-footer: #020617;
+    --text-inverse: #ffffff;
+}
+
+/* Forçar cores de texto baseadas no tema para ALL common elements */
+body, p, div, span, h1, h2, h3, h4, h5, h6, .card-title, .h5, a:not(.btn) {
+    color: var(--text-primary);
+}
+
+.text-muted, .text-secondary, .card-text.text-muted {
+    color: var(--text-secondary) !important;
 }
 
 body {
@@ -33,6 +49,7 @@ body {
     color: var(--text-primary);
     transition: background-color 0.3s, color 0.3s;
 }
+
 
 /* Barra de Navegação Flutuante */
 .navbar {
@@ -67,41 +84,66 @@ body {
     color: var(--primary-color) !important;
 }
 
+[data-theme="dark"] .nav-link {
+    color: #94a3b8 !important;
+}
+[data-theme="dark"] .nav-link:hover {
+    color: #f1f5f9 !important;
+}
+
 /* Botões */
+.btn-primary, .btn-accent, .btn-outline-dark, .btn-outline-primary {
+    border-radius: 50px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid transparent; /* Base estável para todos */
+}
+
 .btn-primary {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
-    border-radius: 50px;
-    padding: 0.6rem 1.5rem;
+    color: var(--bg-card);
+}
+
+[data-theme="dark"] .btn-primary {
+    color: #ffffff; 
 }
 
 .btn-primary:hover {
     background-color: var(--secondary-color);
     border-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .btn-accent {
     background-color: var(--accent-color);
-    color: var(--primary-color);
-    font-weight: 600;
-    border: none;
-    border-radius: 50px;
+    border-color: var(--accent-color);
+    color: #0f172a !important; 
 }
 
 .btn-accent:hover {
     background-color: var(--accent-hover);
-    color: var(--primary-color);
+    border-color: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(134, 239, 172, 0.3);
 }
+
 
 /* Cartões */
 .card {
     background-color: var(--bg-card);
-    border: none;
+    border: 1px solid var(--border-color);
     border-radius: var(--card-radius);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
     box-shadow: var(--shadow-sm);
 }
+
 
 .card:hover {
     transform: translateY(-5px);
@@ -126,7 +168,15 @@ footer {
     margin-top: 4rem;
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
+    color: white !important; /* Default footer text */
 }
+
+[data-theme="dark"] footer {
+    background-color: var(--bg-footer) !important;
+    color: var(--text-secondary) !important;
+}
+
+
 
 /* Secção Principal (Hero) */
 .hero {
@@ -135,6 +185,10 @@ footer {
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     border-bottom-left-radius: 60px;
     border-bottom-right-radius: 60px;
+}
+
+[data-theme="dark"] .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
 }
 
 /* Barra de Filtros */
@@ -163,7 +217,7 @@ footer {
 .hero h1 {
     font-weight: 800;
     letter-spacing: -1px;
-    color: var(--primary-color);
+    color: var(--text-primary);
 }
 
 /* Utilitários */
@@ -173,4 +227,102 @@ footer {
 
 .bg-accent {
     background-color: var(--accent-color);
+}
+
+/* --- ESTILOS DA NAVBAR GLOBAL (MIGRADO) --- */
+:root {
+    --bg-navbar: rgba(255, 255, 255, 0.95);
+    --text-navbar: #1e293b;
+}
+
+[data-theme="dark"] {
+    --bg-navbar: rgba(15, 23, 42, 0.95);
+    --text-navbar: #f1f5f9;
+    --nav-hover: rgba(255, 255, 255, 0.1);
+}
+
+.custom-navbar {
+    background: var(--bg-navbar) !important;
+    backdrop-filter: blur(20px);
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.avatar-circle {
+    width: 35px;
+    height: 35px;
+    background-color: var(--primary-color);
+    color: var(--bg-card); /* Texto inverso ao fundo */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+[data-theme="dark"] .avatar-circle {
+    color: #0f172a !important; 
+}
+
+/* Dropdown Apple Style */
+.apple-dropdown {
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.15);
+    background: var(--bg-navbar);
+    backdrop-filter: blur(20px);
+    padding: 0.5rem;
+    margin-top: 15px;
+    
+    /* Lógica de Visibilidade/Delay */
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease-in-out;
+    transition-delay: 0.7s; /* Delay de 0.7s ao sair */
+    
+    /* Garantir alinhamento à direita para não sair do ecrã */
+    right: 0 !important;
+    left: auto !important;
+    margin-right: 0px;
+}
+
+
+/* Itens do Dropdown */
+.dropdown-item {
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    transition: all 0.1s;
+    color: var(--text-primary) !important; /* Forçar cor do texto correta */
+}
+
+.dropdown-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: scale(1.02);
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Textos dentro do dropdown (nome, email) */
+.apple-dropdown span, .apple-dropdown i {
+    color: var(--text-primary) !important;
+}
+.apple-dropdown .text-muted {
+    color: var(--text-secondary) !important;
+}
+
+/* Hover Behavior */
+@media (min-width: 992px) {
+    .nav-item.dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        transition-delay: 0s; /* Aparece imediatamente */
+    }
 }

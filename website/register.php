@@ -47,77 +47,109 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="d-flex align-items-center justify-content-center min-vh-100 bg-light py-5">
+<body class="d-flex flex-column align-items-center justify-content-center min-vh-100">
 
-    <div class="card shadow-lg p-4" style="width: 100%; max-width: 500px;">
-        <div class="card-body">
-            <div class="text-center mb-4">
-                <a href="index.php" class="text-decoration-none h3 fw-bold text-dark">SECOND AVENUE</a>
-                <p class="text-muted small mt-2">Crie a sua conta e comece a negociar.</p>
-            </div>
+    <?php include 'includes/navbar.php'; ?>
 
-            <?php if ($error): ?>
-                <div class="alert alert-danger py-2 small"><?= htmlspecialchars($error) ?></div>
-            <?php endif; ?>
-            <?php if ($success): ?>
-                <div class="alert alert-success py-2 small">
-                    <?= htmlspecialchars($success) ?>
-                    <div class="mt-2"><a href="login.php" class="fw-bold">Ir para Login</a></div>
+    <div class="flex-grow-1 d-flex align-items-center justify-content-center w-100 py-5">
+        <div class="card shadow-lg p-4" style="width: 100%; max-width: 500px;">
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <h3 class="fw-bold">Criar Conta</h3>
+                    <p class="text-muted small mt-2">Junte-se à nossa comunidade.</p>
                 </div>
-            <?php endif; ?>
 
-            <form method="POST">
-                <div class="mb-3">
-                    <label class="form-label small fw-bold">Nome Completo</label>
-                    <input type="text" name="name" class="form-control rounded-pill" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label small fw-bold">Email</label>
-                    <input type="email" name="email" class="form-control rounded-pill" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label small fw-bold">Localização (Cidade/Distrito)</label>
-                    <input type="text" name="location" class="form-control rounded-pill" placeholder="Ex: Lisboa"
-                        required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label small fw-bold mb-2">Tipo de Conta</label>
-                    <div class="d-flex gap-3">
-                        <div class="form-check card p-3 flex-fill text-center" style="cursor: pointer;">
-                            <input class="form-check-input float-none mx-auto mb-2" type="radio" name="role"
-                                value="community" id="roleComm" checked>
-                            <label class="form-check-label d-block small fw-bold stretched-link"
-                                for="roleComm">Comunidade</label>
-                            <span class="text-muted d-block" style="font-size: 0.75rem;">Para vendas ocasionais</span>
-                        </div>
-                        <div class="form-check card p-3 flex-fill text-center" style="cursor: pointer;">
-                            <input class="form-check-input float-none mx-auto mb-2" type="radio" name="role"
-                                value="professional" id="rolePro">
-                            <label class="form-check-label d-block small fw-bold stretched-link"
-                                for="rolePro">Profissional</label>
-                            <span class="text-muted d-block" style="font-size: 0.75rem;">Requer Verificação</span>
+                <?php if ($error): ?>
+                    <div class="alert alert-danger py-2 small"><?= htmlspecialchars($error) ?></div>
+                <?php endif; ?>
+                <?php if ($success): ?>
+                    <div class="alert alert-success py-2 small">
+                        <?= htmlspecialchars($success) ?>
+                        <div class="mt-2"><a href="login.php" class="fw-bold">Ir para Login</a></div>
+                    </div>
+                <?php endif; ?>
+
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Nome Completo</label>
+                        <input type="text" name="name" class="form-control rounded-pill" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Email</label>
+                        <input type="email" name="email" class="form-control rounded-pill" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Localização (Cidade/Distrito)</label>
+                        <input type="text" name="location" class="form-control rounded-pill" placeholder="Ex: Lisboa"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold mb-2">Tipo de Conta</label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check card p-3 flex-fill text-center" style="cursor: pointer;">
+                                <input class="form-check-input float-none mx-auto mb-2" type="radio" name="role"
+                                    value="community" id="roleComm" checked>
+                                <label class="form-check-label d-block small fw-bold stretched-link"
+                                    for="roleComm">Comunidade</label>
+                                <span class="text-muted d-block" style="font-size: 0.75rem;">Para vendas
+                                    ocasionais</span>
+                            </div>
+                            <div class="form-check card p-3 flex-fill text-center" style="cursor: pointer;">
+                                <input class="form-check-input float-none mx-auto mb-2" type="radio" name="role"
+                                    value="professional" id="rolePro">
+                                <label class="form-check-label d-block small fw-bold stretched-link"
+                                    for="rolePro">Profissional</label>
+                                <span class="text-muted d-block" style="font-size: 0.75rem;">Requer Verificação</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="mb-4">
-                    <label class="form-label small fw-bold">Palavra-passe</label>
-                    <input type="password" name="password" class="form-control rounded-pill" required>
-                </div>
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold">Palavra-passe</label>
+                        <div class="input-group">
+                            <input type="password" name="password" id="passwordInput"
+                                class="form-control rounded-start-pill border-end-0" required>
+                            <button class="btn btn-outline-secondary rounded-end-pill border-start-0" type="button"
+                                id="togglePassword">
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
 
-                <div class="d-grid mb-3">
-                    <button type="submit" class="btn btn-primary btn-lg fs-6 fw-bold">Criar Conta</button>
-                </div>
-            </form>
+                        <script>
+                            document.getElementById('togglePassword').addEventListener('click', function () {
+                                const passwordInput = document.getElementById('passwordInput');
+                                const icon = this.querySelector('i');
 
-            <div class="text-center mt-3 small">
-                <span class="text-muted">Já tem conta?</span>
-                <a href="login.php" class="text-primary fw-bold text-decoration-none">Entrar</a>
+                                if (passwordInput.type === 'password') {
+                                    passwordInput.type = 'text';
+                                    icon.classList.remove('fa-eye');
+                                    icon.classList.add('fa-eye-slash');
+                                } else {
+                                    passwordInput.type = 'password';
+                                    icon.classList.remove('fa-eye-slash');
+                                    icon.classList.add('fa-eye');
+                                }
+                            });
+                        </script>
+                    </div>
+
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary btn-lg fs-6 fw-bold">Criar Conta</button>
+                    </div>
+                </form>
+
+                <div class="text-center mt-3 small">
+                    <span class="text-muted">Já tem conta?</span>
+                    <a href="login.php" class="text-primary fw-bold text-decoration-none">Entrar</a>
+                </div>
             </div>
         </div>
+
+    </div>
+    </div>
     </div>
 
-    <footer class="text-white py-5">
+    <footer class="text-white py-5 mt-auto w-100">
         <div class="container text-center">
             <h4 class="fw-bold mb-3">SECOND AVENUE</h4>
             <div class="d-flex justify-content-center gap-4 mb-4">
@@ -125,8 +157,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="#" class="text-white-50 hover-white"><i class="fab fa-twitter fa-lg"></i></a>
                 <a href="#" class="text-white-50 hover-white"><i class="fab fa-facebook fa-lg"></i></a>
             </div>
-            <p class="mb-1 text-white-50">&copy; 2026 Second Avenue. Desenvolvido por <a href="https://github.com/peachiu" class="text-white-50 text-decoration-none fw-bold">peachiu ✿</a></p>
-            <small class="text-white-50">PAP - Curso Profissional Técnico de Gestão e Programação de Sistemas Informáticos</small>
+            <p class="mb-1 text-white-50">&copy; 2026 Second Avenue. Desenvolvido por <a
+                    href="https://github.com/peachiu" class="text-white-50 text-decoration-none fw-bold">peachiu
+                    ✿</a></p>
+            <small class="text-white-50">PAP - Curso Profissional Técnico de Gestão e Programação de Sistemas
+                Informáticos</small>
         </div>
     </footer>
 
